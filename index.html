@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fun Demos</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="manifest" href="/manifest.json">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <canvas id="myCanvas" width="900" height="700" style="border:1px solid #000000;"></canvas>
+    <div class="button-container">
+        <button id="showInteractiveFractals">Fractals</button>
+        <button id="showGalaxySimulation">Galaxy</button>
+        <button id="showAudioVisualizer">Audio Visualizer</button>
+        <button id="showGenerativeArt">Generative Art</button>
+        <button id="showInteractiveNeuralNetwork">Neural Network</button>
+        <button id="showWeatherEffects">Weather Effects</button>
+        <button id="showInteractivePhysicsSandbox">Physics Sandbox</button>
+        <button id="showTerrainGeneration">Terrain</button>
+        <button id="showVirtualAquarium">Aquarium</button>
+        <button id="showInteractiveStorybook">Storybook</button>
+    </div>
+
+    <script src="static/js/fractal.js"></script>
+    <script src="static/js/galaxy.js"></script>
+    <script src="static/js/audioVisualizer.js"></script>
+    <script src="static/js/generativeArt.js"></script>
+    <script src="static/js/neuralNetwork.js"></script>
+    <script src="static/js/weatherEffects.js"></script>
+    <script src="static/js/physicsSandbox.js"></script>
+    <script src="static/js/terrainGeneration.js"></script>
+    <script src="static/js/aquarium.js"></script>
+    <script src="static/js/storybook.js"></script>
+    <script src="static/js/main.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
+                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                }, function(err) {
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+            });
+        }
+    </script>
+</body>
+</html>
