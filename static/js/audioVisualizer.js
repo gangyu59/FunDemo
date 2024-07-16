@@ -1,7 +1,8 @@
 function startAudioVisualizer(canvas, ctx, clearCanvasAndStop) {
     const audioContext = new (window.AudioContext || window.webkitAudioContext)();
     const analyser = audioContext.createAnalyser();
-
+    let animationFrameId = null;
+		clearCanvasAndStop();
     navigator.mediaDevices.getUserMedia({ audio: true })
         .then(stream => {
             const source = audioContext.createMediaStreamSource(stream);
@@ -20,7 +21,7 @@ function startAudioVisualizer(canvas, ctx, clearCanvasAndStop) {
                 let x = 0;
 
                 for (let i = 0; i < bufferLength; i++) {
-                    barHeight = dataArray[i] * 2.5; // 放大
+                    barHeight = dataArray[i] * 1.8; // 放大 80%
 
                     ctx.fillStyle = 'rgb(' + (barHeight + 100) + ',50,50)';
                     ctx.fillRect(x, canvas.height - barHeight / 2, barWidth, barHeight / 2);
@@ -30,8 +31,8 @@ function startAudioVisualizer(canvas, ctx, clearCanvasAndStop) {
 
                 animationFrameId = requestAnimationFrame(draw);
             }
-
-            clearCanvasAndStop();
+						
+						clearCanvasAndStop();
             draw();
         })
         .catch(err => {

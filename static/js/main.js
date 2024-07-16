@@ -18,22 +18,24 @@ document.addEventListener('DOMContentLoaded', function () {
             clearInterval(intervalId);
             intervalId = null;
         }
-        ctx.setTransform(1, 0, 0, 1, 0, 0);  // 重置变换矩阵
         ctx.clearRect(0, 0, canvas.width, canvas.height);  // 清理画布
+
+        // 清除输入框和标签
+        const containers = document.querySelectorAll('.control-container');
+        containers.forEach(container => container.remove());
+
+        // 清除故事书按钮
+        const buttons = document.querySelectorAll('.storybook-button');
+        buttons.forEach(button => button.remove());
     }
 
     function addEventListenerToButton(id, functionName) {
-        const button = document.getElementById(id);
-        if (button) {
-            button.addEventListener('click', function () {
-                clearCurrentAnimation();
-                if (typeof window[functionName] === 'function') {
-                    window[functionName](canvas, ctx, clearCurrentAnimation);
-                }
-            });
-        } else {
-            console.warn(`Button with ID ${id} not found.`);
-        }
+        document.getElementById(id).addEventListener('click', function () {
+            clearCurrentAnimation();
+            if (typeof window[functionName] === 'function') {
+                window[functionName](canvas, ctx, clearCurrentAnimation);
+            }
+        });
     }
 
     // 绑定按钮和对应的函数

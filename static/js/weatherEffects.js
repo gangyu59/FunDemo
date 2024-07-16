@@ -116,6 +116,7 @@ function startWeatherEffects(canvas, ctx, clearCanvasAndStop) {
     }
 
     // 初始状态为下雨
+		clearCanvasAndStop();
     createRain();
     updateWeather();
 

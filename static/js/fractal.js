@@ -1,8 +1,7 @@
 function startFractal(canvas, ctx, clearCanvasAndStop) {
-    clearCanvasAndStop();
-
     let maxIterations = 1000;
-    let intervalId = null;
+
+    clearCanvasAndStop();
 
     function drawFractal() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -12,7 +11,7 @@ function startFractal(canvas, ctx, clearCanvasAndStop) {
 
         const scale = 1.5;
         const offsetX = canvas.width * 0.02;
-        const offsetY = - canvas.height * 0.3;
+        const offsetY = -canvas.height * 0.3;
 
         for (let x = 0; x < canvas.width; x++) {
             for (let y = 0; y < canvas.height; y++) {
@@ -43,9 +42,10 @@ function startFractal(canvas, ctx, clearCanvasAndStop) {
         drawFractal();
     }
 
-    intervalId = setInterval(updateIterations, 3000);
-
-    drawFractal();
+    animationFrameId = requestAnimationFrame(function draw() {
+        updateIterations();
+        animationFrameId = requestAnimationFrame(draw);
+    });
 }
 
 window.startFractal = startFractal;

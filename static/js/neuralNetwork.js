@@ -103,6 +103,7 @@ function startNeuralNetwork(canvas, ctx, clearCanvasAndStop) {
         }
     });
 
+		clearCanvasAndStop();
     drawNetwork();
 }
 

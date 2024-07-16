@@ -57,13 +57,11 @@ function startTerrainGeneration(canvas, ctx, clearCanvasAndStop) {
         ctx.fill();
     }
 
-    function animateTerrain() {
+    animationFrameId = requestAnimationFrame(function draw() {
         const points = generateTerrain();
         drawTerrain(points);
-        currentAnimation = setTimeout(animateTerrain, 1000);
-    }
-
-    animateTerrain();
+        animationFrameId = requestAnimationFrame(draw);
+    });
 }
 
 window.startTerrainGeneration = startTerrainGeneration;

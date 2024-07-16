@@ -22,8 +22,6 @@ function startGenerativeArt(canvas, ctx, clearCanvasAndStop) {
         sentence = generate(sentence, rules);
     }
 
-    drawLSystem(sentence, length, angle);
-
     function generate(sentence, rules) {
         let nextSentence = '';
         for (let i = 0; i < sentence.length; i++) {
@@ -60,6 +58,11 @@ function startGenerativeArt(canvas, ctx, clearCanvasAndStop) {
         }
         ctx.restore();
     }
+
+    animationFrameId = requestAnimationFrame(function draw() {
+        drawLSystem(sentence, length, angle);
+        animationFrameId = requestAnimationFrame(draw);
+    });
 }
 
 window.startGenerativeArt = startGenerativeArt;

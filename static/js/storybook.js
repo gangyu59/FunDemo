@@ -21,6 +21,7 @@ function startStorybook(canvas, ctx, clearCanvasAndStop) {
     ];
 
     let currentPage = 0;
+    let animationFrameId = null;
     let intervalId = null;
 
     function drawPage() {
@@ -44,9 +45,15 @@ function startStorybook(canvas, ctx, clearCanvasAndStop) {
         drawPage();
     }
 
-    intervalId = setInterval(nextPage, 5000);
+    function animateStorybook() {
+        intervalId = setTimeout(() => {
+            nextPage();
+            animationFrameId = requestAnimationFrame(animateStorybook);
+        }, 5000);
+    }
 
     drawPage();
+    animateStorybook();
 }
 
 window.startStorybook = startStorybook;
