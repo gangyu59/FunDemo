@@ -1,52 +1,35 @@
 document.addEventListener('DOMContentLoaded', function () {
     const canvas = document.getElementById('myCanvas');
     const ctx = canvas.getContext('2d');
-    let currentAnimation = null;
-    let animationFrameId = null;
-    let intervalId = null;
 
+    // Each demo registers window.__currentDemoStop = function(){ ... }
+    // to clean up its own animation loops and event listeners.
     function clearCurrentAnimation() {
-        if (animationFrameId) {
-            cancelAnimationFrame(animationFrameId);
-            animationFrameId = null;
+        if (typeof window.__currentDemoStop === 'function') {
+            window.__currentDemoStop();
+            window.__currentDemoStop = null;
         }
-        if (currentAnimation) {
-            clearInterval(currentAnimation);
-            currentAnimation = null;
-        }
-        if (intervalId !== null) {
-            clearInterval(intervalId);
-            intervalId = null;
-        }
-        ctx.clearRect(0, 0, canvas.width, canvas.height);  // 清理画布
-
-        // 清除输入框和标签
-        const containers = document.querySelectorAll('.control-container');
-        containers.forEach(container => container.remove());
-
-        // 清除故事书按钮
-        const buttons = document.querySelectorAll('.storybook-button');
-        buttons.forEach(button => button.remove());
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        document.querySelectorAll('.control-container, .demo-control').forEach(el => el.remove());
     }
 
     function addEventListenerToButton(id, functionName) {
         document.getElementById(id).addEventListener('click', function () {
             clearCurrentAnimation();
             if (typeof window[functionName] === 'function') {
-                window[functionName](canvas, ctx, clearCurrentAnimation);
+                window[functionName](canvas, ctx);
             }
         });
     }
 
-    // 绑定按钮和对应的函数
-    addEventListenerToButton('showInteractiveFractals', 'startFractal');
-    addEventListenerToButton('showGalaxySimulation', 'startGalaxy');
-    addEventListenerToButton('showAudioVisualizer', 'startAudioVisualizer');
-    addEventListenerToButton('showGenerativeArt', 'startGenerativeArt');
-    addEventListenerToButton('showInteractiveNeuralNetwork', 'startNeuralNetwork');
-    addEventListenerToButton('showWeatherEffects', 'startWeatherEffects');
+    addEventListenerToButton('showInteractiveFractals',       'startFractal');
+    addEventListenerToButton('showGalaxySimulation',          'startGalaxy');
+    addEventListenerToButton('showAudioVisualizer',           'startAudioVisualizer');
+    addEventListenerToButton('showGenerativeArt',             'startGenerativeArt');
+    addEventListenerToButton('showInteractiveNeuralNetwork',  'startNeuralNetwork');
+    addEventListenerToButton('showWeatherEffects',            'startWeatherEffects');
     addEventListenerToButton('showInteractivePhysicsSandbox', 'startPhysicsSandbox');
-    addEventListenerToButton('showTerrainGeneration', 'startTerrainGeneration');
-    addEventListenerToButton('showVirtualAquarium', 'startAquarium');
-    addEventListenerToButton('showInteractiveStorybook', 'startStorybook');
+    addEventListenerToButton('showTerrainGeneration',         'startTerrainGeneration');
+    addEventListenerToButton('showVirtualAquarium',           'startAquarium');
+    addEventListenerToButton('showInteractiveStorybook',      'startStorybook');
 });
